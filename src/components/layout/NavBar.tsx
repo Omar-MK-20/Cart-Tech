@@ -1,13 +1,13 @@
 "use client"
 
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { BadgeCent } from "lucide-react";
-import Link from "next/link";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "../ui";
 import { Brand, Category } from "@/interfaces";
-import React, { useState } from "react";
-import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { BadgeCent, Building2, ListTree, ShoppingCart, SwatchBook, User } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React from "react";
+import { Button, NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarTrigger } from "../ui";
 
 
 const categories: Category[] = [
@@ -419,8 +419,8 @@ const brands: Brand[] = [
 ]
 
 
-
-
+let isMobile = true;
+console.log(isMobile);
 
 function NavBar() {
 
@@ -429,36 +429,38 @@ function NavBar() {
 
     const navList =
         [
-            { href: "/products", label: "Products", children: [] },
-            { href: "/categories", label: "Categories", children: categories.map((category: Category) => ({ href: `/categories/${category._id}`, label: category.name })) },
-            { href: "/brands", label: "Brands", children: brands.map((brand: Brand) => ({ href: `/brands/${brand._id}`, label: brand.name })) },
+            { icon: (size: number) => <SwatchBook size={size}/>, href: "/products", label: "Products", children: [] },
+            { icon: (size: number) => <ListTree size={size} />, href: "/categories", label: "Categories", children: categories.map((category: Category) => ({ href: `/categories/${category._id}`, label: category.name })) },
+            { icon: (size: number) => <Building2 size={size} />, href: "/brands", label: "Brands", children: brands.map((brand: Brand) => ({ href: `/brands/${brand._id}`, label: brand.name })) },
             // { href: "/contact", label: "Contact", children: [] },
         ]
 
 
-    const isMobile = useMediaQuery("(max-width: 768px)");
+    isMobile = useMediaQuery("(max-width: 768px)");
+    console.log(isMobile);
+
 
     return (
         <>
-            <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                <nav className="container mx-auto p-5">
-                    <div className="flex items-center justify-between">
-                        <Link href="/" className="flex items-center space-x-2">
-                            <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
-                                <span className="text-primary-foreground font-bold text-lg">
-                                    <BadgeCent />
-                                </span>
-                            </div>
-                            <span className="font-bold text-xl">Cart Tech</span>
-                        </Link>
+            {/* <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"> */}
+            <nav className="container mx-auto p-5">
+                <div className="flex items-center justify-between">
+                    <Link href="/" className="flex items-center space-x-2">
+                        <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
+                            <span className="text-primary-foreground font-bold text-lg">
+                                <BadgeCent />
+                            </span>
+                        </div>
+                        <span className="font-bold text-xl">Cart Tech</span>
+                    </Link>
 
+                    {!isMobile &&
                         <NavigationMenu>
                             <NavigationMenuList>
                                 {
                                     navList.map((navItem) => {
                                         const isActive = pathname.startsWith(navItem.href);
                                         return (<React.Fragment key={navItem.href}>
-
                                             <NavigationMenuItem>
                                                 <div>
                                                     {
@@ -470,36 +472,39 @@ function NavBar() {
                                                                         : "bg-background hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                                                 )}>
                                                                     <Link href={navItem.href}>
-                                                                        <NavigationMenuLink>
-                                                                            {navItem.label}
-                                                                        </NavigationMenuLink>
+                                                                        <div className="flex space-x-2 items-center">
+                                                                            {navItem.icon(16)}
+                                                                            <span>{navItem.label}</span>
+                                                                        </div>
                                                                     </Link>
                                                                 </NavigationMenuTrigger>
                                                                 <NavigationMenuContent>
-                                                                    <ul className="grid grid-cols-4 w-fit gap-2 ">
+                                                                    <ul className="grid grid-cols-4 gap-2 md:w-100">
                                                                         {navItem.children.map((child) => (
-                                                                            <Link className="w-fit"
-                                                                                key={child.href}
-                                                                                title={child.label}
-                                                                                href={child.href}
-                                                                            >
-                                                                                <NavigationMenuLink className="w-fit">
+                                                                            <NavigationMenuLink key={child.href} asChild>
+                                                                                <Link className=""
+                                                                                    key={child.href}
+                                                                                    title={child.label}
+                                                                                    href={child.href}
+                                                                                >
                                                                                     {child.label}
-                                                                                </NavigationMenuLink>
-                                                                            </Link>
+                                                                                </Link>
+                                                                            </NavigationMenuLink>
                                                                         ))}
                                                                     </ul>
                                                                 </NavigationMenuContent>
                                                             </>
                                                         ) : (
-                                                            <Link href={navItem.href}>
-                                                                <NavigationMenuLink className={cn("group inline-flex h-10 w-max justify-center px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50",
-                                                                    isActive
-                                                                        ? "bg-primary text-primary-foreground shadow-md font-semibold"
-                                                                        : "bg-background hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                                                )}>
-                                                                    {navItem.label}
-                                                                </NavigationMenuLink>
+                                                            <Link href={navItem.href}
+                                                            className={cn("group inline-flex h-10 w-max justify-center px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50 rounded-lg",
+                                                                isActive
+                                                                    ? "bg-primary text-primary-foreground shadow-md font-semibold"
+                                                                    : "bg-background hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                                            )}>
+                                                                    <div className="flex space-x-2 items-center">
+                                                                            {navItem.icon(16)}
+                                                                            <span>{navItem.label}</span>
+                                                                        </div>
                                                             </Link>
                                                         )
                                                     }
@@ -510,11 +515,57 @@ function NavBar() {
                                     })
                                 }
                             </NavigationMenuList>
-                        </NavigationMenu>
-                    </div>
+                        </NavigationMenu>}
+                    <div className="flex items-center space-x-2">
+                        {/* User Account */}
+                        <Button variant="ghost" size="icon">
+                            <User className="h-5 w-5" />
+                            <span className="sr-only">Account</span>
+                        </Button>
 
-                </nav>
-            </header>
+                        {/* Shopping Cart */}
+                        <Button variant="ghost" size="icon" className="relative">
+                            <ShoppingCart className="h-5 w-5" />
+                            <span className="absolute -top-1 -right-1 aspect-square w-fit rounded-full bg-primary text-xs text-primary-foreground flex items-center justify-center">
+                                99+
+                            </span>
+                            <span className="sr-only">Shopping cart</span>
+                        </Button>
+                        {isMobile &&
+                            <>
+                                <SidebarTrigger />
+                                <Sidebar>
+                                    <SidebarContent>
+                                        <SidebarGroup>
+                                            <SidebarGroupLabel>
+                                                <span className="font-bold text-2xl">Cart Tech</span>
+                                            </SidebarGroupLabel>
+                                            <SidebarGroupContent>
+                                                <SidebarMenu className="my-4">
+                                                    {
+                                                        navList.map((navItem) => (
+                                                            <SidebarMenuItem key={navItem.href}>
+                                                                <SidebarMenuButton asChild className="p-6">
+                                                                    <a href={navItem.href}>
+                                                                        {navItem.icon(24)}
+                                                                        <span className="text-xl">{navItem.label}</span>
+                                                                    </a>
+                                                                </SidebarMenuButton>
+                                                            </SidebarMenuItem>
+                                                        ))
+                                                    }
+                                                </SidebarMenu>
+                                            </SidebarGroupContent>
+                                        </SidebarGroup>
+                                    </SidebarContent>
+                                </Sidebar>
+                            </>
+                        }
+                    </div>
+                </div>
+
+            </nav>
+            {/* </header> */}
         </>
     )
 }
