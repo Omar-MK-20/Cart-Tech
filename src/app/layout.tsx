@@ -1,8 +1,7 @@
-import { NavBar } from "@/components/layout";
-import { SidebarProvider } from "@/components/ui";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Footer, NavBarContainer } from "@/components/layout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,17 +28,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="max-h-10">
-        <SidebarProvider>
-          <header className="fixed w-full backdrop-blur-md shadow-sm">
-
-          <NavBar />
-          </header>
-        </SidebarProvider>
-        </header>
-            {children}
-            {children}
-            {children}
+        <NavBarContainer />
+        {children}
+        <Footer />
       </body>
     </html>
   );
