@@ -1,4 +1,4 @@
-export interface Category {
+export interface CategoryI {
     _id: string
     name: string
     slug: string
@@ -7,7 +7,7 @@ export interface Category {
     updatedAt?: string
 }
 
-export interface SubCategory {
+export interface SubCategoryI {
     _id: string
     name: string
     slug: string

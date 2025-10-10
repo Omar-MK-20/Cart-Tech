@@ -1,10 +1,10 @@
-import { Brand } from "./brand"
-import { Category, SubCategory } from "./category"
+import { BrandI } from "./brand"
+import { CategoryI, SubCategoryI } from "./category"
 
-export interface Product {
+export interface ProductI {
     sold: number
     images: string[]
-    subcategory: SubCategory[]
+    subcategory: SubCategoryI[]
     ratingsQuantity: number
     _id: string
     title: string
@@ -13,8 +13,8 @@ export interface Product {
     quantity: number
     price: number
     imageCover: string
-    category: Category
-    brand: Brand
+    category: CategoryI
+    brand: BrandI
     ratingsAverage: number
     createdAt?: string
     updatedAt?: string
