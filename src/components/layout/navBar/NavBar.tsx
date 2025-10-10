@@ -1,6 +1,6 @@
 "use client"
 
-import { Brand, Category } from "@/interfaces";
+import { BrandI, CategoryI } from "@/interfaces";
 import { BadgeCent, Building2, ListTree, ShoppingCart, SwatchBook, User } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../../ui";
@@ -20,8 +20,8 @@ function NavBar() {
     const navList: NavItemI[] =
         [
             { icon: (size: number) => <SwatchBook size={size} />, href: "/products", label: "Products", children: [] },
-            { icon: (size: number) => <ListTree size={size} />, href: "/categories", label: "Categories", children: categories.map((category: Category) => ({ href: `/categories/${category._id}`, label: category.name })) },
-            { icon: (size: number) => <Building2 size={size} />, href: "/brands", label: "Brands", children: brands.map((brand: Brand) => ({ href: `/brands/${brand._id}`, label: brand.name })) },
+            { icon: (size: number) => <ListTree size={size} />, href: "/categories", label: "Categories", children: categories.map((category: CategoryI) => ({ href: `/categories/${category._id}`, label: category.name })) },
+            { icon: (size: number) => <Building2 size={size} />, href: "/brands", label: "Brands", children: brands.map((brand: BrandI) => ({ href: `/brands/${brand._id}`, label: brand.name })) },
         ]
 
 

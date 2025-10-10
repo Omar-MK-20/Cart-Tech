@@ -1,6 +1,6 @@
-import { Brand, Category } from "@/interfaces"
+import { BrandI, CategoryI } from "@/interfaces"
 
-export const categories: Category[] = [
+export const categories: CategoryI[] = [
     {
         _id: "6439d61c0049ad0b52b90051",
         name: "Music",
@@ -85,7 +85,7 @@ export const categories: Category[] = [
 
 
 
-export const brands: Brand[] = [
+export const brands: BrandI[] = [
     {
         _id: "64089fe824b25627a25315d1",
         name: "Canon",
