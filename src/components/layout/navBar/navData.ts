@@ -85,6 +85,7 @@ export const categories: CategoryI[] = [
 
 
 
+
 export const brands: BrandI[] = [
     {
         _id: "64089fe824b25627a25315d1",
