@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/helpers/currency";
 import { renderStars } from "@/helpers/rating";
 import { ProductI } from "@/interfaces";
-import { Heart, ShoppingCart } from "lucide-react";
+import { ArrowUpRight, Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,6 +14,10 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
+
+  // const navigate = Navigate
+
+
   if (viewMode === "list") {
     return (
       <div className="flex gap-4 p-4 border rounded-lg hover:shadow-md transition-shadow">
@@ -109,13 +113,18 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
         />
 
         {/* Wishlist Button */}
-        <Button
+        {/* <Button
           variant="ghost"
           size="sm"
-          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white/80 hover:bg-white"
-        >
-          <Heart className="h-4 w-4" />
-        </Button>
+          className="absolute top-2 right-2 group-hover:opacity-100 transition-opacity bg-white/80 hover:bg-white"
+        > */}
+        {/* <Heart  /> */}
+        <Link
+          className="absolute top-2 right-2 group-hover:opacity-100 transition-opacity bg-white/80 hover:bg-white"
+          href={product._id}>
+          <ArrowUpRight className="h-4 w-4" />
+        </Link>
+        {/* </Button> */}
 
         {/* Badge for sold items */}
         {product.sold > 100 && (
@@ -156,7 +165,7 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
         {/* Price */}
         <div className="flex items-center justify-between mb-3">
           <span className="text-lg font-bold text-primary">
-            {formatPrice(1500)}
+            {formatPrice(product.price)}
           </span>
           <span className="text-xs text-muted-foreground">{product.sold} sold</span>
         </div>

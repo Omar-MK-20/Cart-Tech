@@ -8,7 +8,6 @@ async function ProductPage() {
 
   const products: ProductI[] = (await productService.getAll()).data
 
-  console.log(products)
 
 
   return (

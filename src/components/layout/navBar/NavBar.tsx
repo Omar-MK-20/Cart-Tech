@@ -5,7 +5,6 @@ import { BadgeCent, Building2, ListTree, ShoppingCart, SwatchBook, User } from "
 import Link from "next/link";
 import { Button } from "../../ui";
 import NavBarMenuItems from "./NavBarMenuItems";
-import { brands, categories } from "./navData";
 import { NavItemI } from "./navInterfaces";
 import SideBarMenuItems from "./SideBarMenuItems";
 
@@ -13,7 +12,7 @@ import SideBarMenuItems from "./SideBarMenuItems";
 
 
 
-function NavBar() {
+function NavBar({ brands, categories }: { brands: BrandI[], categories: CategoryI[] }) {
 
 
 

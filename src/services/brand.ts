@@ -1,9 +1,9 @@
-import { BrandI, GetAllResponseI, GetSingleResponseI } from "@/interfaces";
-
+import { GetAllResponseI, GetSingleResponseI, BrandI } from "@/interfaces";
 
 class BrandServices {
     private baseUrl: string = process.env.BASE_URL ? process.env.BASE_URL : "";
-    private endpoint: string = "brands";
+
+    private endpoint: string = "brands"
 
     public async getAll(): Promise<GetAllResponseI<BrandI>> {
         const response: GetAllResponseI<BrandI> = await
@@ -14,9 +14,9 @@ class BrandServices {
         return response
     }
 
-    public async getSingle(productId: string): Promise<GetSingleResponseI<BrandI>> {
+    public async getSingle(brandId: string): Promise<GetSingleResponseI<BrandI>> {
         const response: GetSingleResponseI<BrandI> = await
-            fetch(this.baseUrl + this.endpoint + productId,
+            fetch(this.baseUrl + this.endpoint + brandId,
                 { method: "get" })
                 .then((res) => res.json())
 
