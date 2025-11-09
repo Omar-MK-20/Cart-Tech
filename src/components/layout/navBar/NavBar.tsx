@@ -18,9 +18,24 @@ function NavBar({ brands, categories }: { brands: BrandI[], categories: Category
 
     const navList: NavItemI[] =
         [
-            { icon: (size: number) => <SwatchBook size={size} />, href: "/products", label: "Products", children: [] },
-            { icon: (size: number) => <ListTree size={size} />, href: "/categories", label: "Categories", children: categories.map((category: CategoryI) => ({ href: `/categories/${category._id}`, label: category.name })) },
-            { icon: (size: number) => <Building2 size={size} />, href: "/brands", label: "Brands", children: brands.map((brand: BrandI) => ({ href: `/brands/${brand._id}`, label: brand.name })) },
+            {
+                icon: (size: number) => <SwatchBook size={size} />,
+                href: "/products",
+                label: "Products",
+                children: []
+            },
+            {
+                icon: (size: number) => <ListTree size={size} />,
+                href: "/categories",
+                label: "Categories",
+                children: categories.map((category: CategoryI) => ({ parent: `categories`, label: category.name, _id: category._id }))
+            },
+            {
+                icon: (size: number) => <Building2 size={size} />,
+                href: "/brands",
+                label: "Brands",
+                children: brands.map((brand: BrandI) => ({ parent: `brands`, label: brand.name, _id: brand._id }))
+            },
         ]
 
 

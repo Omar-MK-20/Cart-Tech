@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 
 interface ChildNavItemI {
-    href: string;
+    _id: string
+    parent: string;
     label: string;
 }
 
@@ -12,4 +13,4 @@ interface NavItemI {
     children: ChildNavItemI[]; // Recursive type for nested menus
 }
 
-export type { NavItemI }
+export type { NavItemI, ChildNavItemI }

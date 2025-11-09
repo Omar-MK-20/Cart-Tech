@@ -6,15 +6,15 @@ import { useState } from 'react'
 import { Button } from '../ui'
 import { ProductCard } from './ProductCard'
 
-function ProductContainer({products} : {products:ProductI[]}) {
+function ProductContainer({ products }: { products: ProductI[] }) {
 
-    const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-
-
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
 
 
 
-    return (
+
+
+  return (
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
@@ -53,17 +53,16 @@ function ProductContainer({products} : {products:ProductI[]}) {
           <LoadingSpinner />
         </div>
       ) : ( */}
-        <div
-          className={`grid gap-6 relative ${
-            viewMode === "grid"
-              ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-              : "grid-cols-1"
+      <div
+        className={`grid gap-6 relative ${viewMode === "grid"
+            ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+            : "grid-cols-1"
           }`}
-        >
-          {products.map((product) => (
-            <ProductCard key={product._id} product={product} viewMode={viewMode} />
-          ))}
-        </div>
+      >
+        {products.map((product) => (
+          <ProductCard key={product._id} product={product} viewMode={viewMode} />
+        ))}
+      </div>
     </div>
   )
 }

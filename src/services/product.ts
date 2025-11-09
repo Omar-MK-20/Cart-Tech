@@ -1,7 +1,7 @@
 import { GetAllResponseI, GetSingleResponseI, ProductI } from "@/interfaces";
 
 class ProductServices {
-    private baseUrl: string = process.env.BASE_URL ? process.env.BASE_URL : "";
+    private baseUrl: string = process.env.NEXT_PUBLIC_BASE_URL ? process.env.NEXT_PUBLIC_BASE_URL : "";
 
     private endpoint: string = "products"
 
@@ -15,12 +15,20 @@ class ProductServices {
     }
 
     public async getSingle(productId: string | string[]): Promise<GetSingleResponseI<ProductI>> {
-        console.log(this.baseUrl);
         const response: GetSingleResponseI<ProductI> = await
-            fetch(this.baseUrl + this.endpoint + productId,
+            fetch(this.baseUrl + this.endpoint + "/" + productId,
                 { method: "get" })
                 .then((res) => res.json())
-            
+
+
+        return response
+    }
+
+    public async getByCategory(categoryId: string | string[]): Promise<GetAllResponseI<ProductI>> {
+        const response: GetAllResponseI<ProductI> = await
+            fetch(this.baseUrl + this.endpoint + "?" + "category[in]=" + categoryId,
+                { method: "get"})
+                .then( (res) => res.json())
 
         return response
     }

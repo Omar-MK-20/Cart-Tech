@@ -3,6 +3,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import dynamic from 'next/dynamic';
 import { NavItemI } from "./navInterfaces";
 import { BadgeCent } from 'lucide-react';
+import Link from 'next/link';
 
 
 
@@ -18,13 +19,7 @@ function NavBarMenuItems({ navList }: { navList: NavItemI[] }) {
                 <Sidebar>
                     <SidebarContent>
                         <SidebarGroup>
-                            <SidebarGroupLabel>
-                                <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
-                                    <span className="text-primary-foreground font-bold text-lg">
-                                        <BadgeCent />
-                                    </span>
-                                </div>
-                                <span className="px-3 font-bold text-2xl">CartTech</span>
+                            <SidebarGroupLabel className='pt-15'>
                             </SidebarGroupLabel>
                             <SidebarGroupContent>
                                 <SidebarMenu className="my-4">
@@ -32,10 +27,10 @@ function NavBarMenuItems({ navList }: { navList: NavItemI[] }) {
                                         navList.map((navItem) => (
                                             <SidebarMenuItem key={navItem.href}>
                                                 <SidebarMenuButton asChild className="p-6">
-                                                    <a href={navItem.href}>
+                                                    <Link href={navItem.href}>
                                                         {navItem.icon(24)}
                                                         <span className="text-xl">{navItem.label}</span>
-                                                    </a>
+                                                    </Link>
                                                 </SidebarMenuButton>
                                             </SidebarMenuItem>
                                         ))

@@ -1,9 +1,9 @@
 import { GetAllResponseI, GetSingleResponseI, CategoryI } from "@/interfaces";
 
 class CategoriesServices {
-    private baseUrl: string = process.env.BASE_URL ? process.env.BASE_URL : "";
+    private baseUrl: string = process.env.NEXT_PUBLIC_BASE_URL ? process.env.NEXT_PUBLIC_BASE_URL : "";
 
-    private endpoint: string = "categories"
+    private endpoint: string = "categories/"
 
     public async getAll(): Promise<GetAllResponseI<CategoryI>> {
         const response: GetAllResponseI<CategoryI> = await
