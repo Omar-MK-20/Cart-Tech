@@ -14,11 +14,13 @@ class ProductServices {
         return response
     }
 
-    public async getSingle(productId: string): Promise<GetSingleResponseI<ProductI>> {
+    public async getSingle(productId: string | string[]): Promise<GetSingleResponseI<ProductI>> {
+        console.log(this.baseUrl);
         const response: GetSingleResponseI<ProductI> = await
             fetch(this.baseUrl + this.endpoint + productId,
                 { method: "get" })
                 .then((res) => res.json())
+            
 
         return response
     }

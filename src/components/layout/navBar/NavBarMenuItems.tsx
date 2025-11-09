@@ -18,7 +18,7 @@ function NavBarMenuItems({navList}:{navList:NavItemI[]}) {
     {
         return (
            
-                <NavigationMenu>
+                <NavigationMenu className='relative z-100'>
                     <NavigationMenuList>
                         {
                             navList.map((navItem) => {
@@ -45,7 +45,7 @@ function NavBarMenuItems({navList}:{navList:NavItemI[]}) {
                                                             <ul className="grid grid-cols-4 gap-2 md:w-100">
                                                                 {navItem.children.map((child) => (
                                                                     <NavigationMenuLink key={child.href} asChild>
-                                                                        <Link className=""
+                                                                        <Link className="flex justify-center items-center border-2 shadow-2xs text-center"
                                                                             key={child.href}
                                                                             title={child.label}
                                                                             href={child.href}

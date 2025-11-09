@@ -10,7 +10,7 @@ function NavBarContainer() {
     return (
         <header className="max-h-10">
             <SidebarProvider>
-                <header className="fixed w-full backdrop-blur-md shadow-sm">
+                <header className="fixed w-full backdrop-blur-md shadow-sm z-100">
                     <NavBar brands={brands} categories={categories} />
                 </header>
             </SidebarProvider>

@@ -1,4 +1,4 @@
-import { BrandI, CategoryI } from "@/interfaces"
+import { CategoryI } from "@/interfaces"
 import { brandService } from "@/services/brand"
 import { categoriesServices } from "@/services/categories"
 
