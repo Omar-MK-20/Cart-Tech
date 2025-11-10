@@ -1,10 +1,8 @@
 # Cart-Tech
 
-Cart-Tech is an in-progress e-commerce frontend built with Next.js 15 and React 19. It targets a clean, modern UI using Radix UI primitives, Tailwind CSS v4, and Lucide icons. The app integrates with an external commerce API and supports images from `ecommerce.routemisr.com` for products, brands, and categories.
+You are viewing the development branch (`dev`). Latest features and breaking changes land here; `main` is kept stable.
 
-- **Status**: Work-in-progress
-- **Active development branch**: `dev` (latest features land here first)
-- **Default branch**: `main`
+Cart-Tech is an in-progress e-commerce frontend built with Next.js 15 and React 19 using Radix UI, Tailwind CSS v4, and Lucide icons. The app integrates with an external commerce API and supports images from `ecommerce.routemisr.com`.
 
 ## Tech Stack
 
@@ -16,10 +14,25 @@ Cart-Tech is an in-progress e-commerce frontend built with Next.js 15 and React 
 
 ## Project Structure
 
-- `src/` — application source (App Router, components, hooks, lib, styles)
+- `src/` — application source (App Router, components, hooks, lib, styles). Pages in `src/app/(pages)`:
+  - `products/` — list, details, error boundary
+  - `categories/` — list, details
+  - `brands/` — list
 - `public/` — static assets
 - `next.config.ts` — Next.js configuration (image remote patterns set for routemisr CDN)
 - `components.json` — shadcn/ui configuration and path aliases
+
+## Developer Notes (dev)
+
+- Node 18+ recommended
+- App Router with RSC; global boundaries: `error.tsx`, `global-error.tsx`, `loading.tsx`, `not-found.tsx`
+- Tailwind v4 via PostCSS (`postcss.config.mjs`), global styles in `src/app/globals.css`
+- UI primitives in `src/components/ui/*` (Radix-based)
+- Path aliases: `@/*` → `./src/*` (see `tsconfig.json`)
+- API services in `src/services/*` (categories, brands, products)
+- Types in `src/interfaces/*`; helpers in `src/helpers/*`
+- Navigation content in `src/server/navBar/navData.ts`
+- No global state library yet (cart/wishlist/session TBD)
 
 ## Getting Started
 
@@ -115,6 +128,46 @@ This checklist tracks planned and completed API features. Work is ongoing; check
   - [ ] POST — Checkout session
   - [ ] GET — getAllOrders
   - [ ] GET — getUserOrders
+
+## Frontend Tasks (dev)
+
+- Global & Layout
+  - [x] App layout and boundaries (`layout.tsx`, `error.tsx`, `loading.tsx`, `not-found.tsx`)
+  - [x] Global styles (`globals.css`) and Tailwind v4 setup
+  - [ ] SEO metadata per page (title, description, OG)
+
+- Navigation
+  - [x] Header/NavBar with mobile sidebar (`components/layout/navBar/*`)
+  - [x] Footer (`components/layout/footer/*`)
+  - [ ] Active route styling + accessibility audit
+
+- Pages
+  - [x] Home page (`src/app/page.tsx`)
+  - [x] Products: list + details (`app/(pages)/products`, `[productId]`)
+  - [x] Categories: list + details (`app/(pages)/categories`, `[categoriesId]`)
+  - [x] Brands: list (`app/(pages)/brands`)
+  - [ ] Brands: details (`/brands/[brandId]`)
+
+- UI Components
+  - [x] Base UI primitives (`components/ui/*`)
+  - [x] Product UI (`components/product/*`)
+  - [x] Category/Brand UI (`components/category&brand/*`)
+  - [ ] Skeletons and empty states coverage
+
+- Data Layer
+  - [x] Services for categories/brands/products (`src/services/*`)
+  - [ ] Wishlist integration (client actions + optimistic updates)
+  - [ ] Cart integration (client actions + optimistic updates)
+  - [ ] Orders flow (cash checkout + session)
+
+- State & Caching
+  - [ ] Client store (e.g., Zustand) for cart/wishlist/session
+  - [ ] RSC caching and revalidation per resource
+
+- Quality
+  - [ ] Unit tests for helpers/services
+  - [ ] Component tests for critical UI
+  - [ ] Lighthouse/AXE pass for performance/accessibility
 
 ## Development Workflow
 
