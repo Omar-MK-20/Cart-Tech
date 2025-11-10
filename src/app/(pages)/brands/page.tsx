@@ -1,19 +1,20 @@
-import Container from '@/components/category&brand/Container'
-import { brandService } from '@/services/brand'
-import React from 'react'
+import Container from '@/components/category&brand/Container';
+import { BrandI } from '@/interfaces';
+import { brandService } from '@/services/brand';
 
-async function BrandsPage() {
+async function BrandsPage()
+{
 
-  const brands = (await brandService.getAll()).data
+  const brands: BrandI[] = (await brandService.getAll()).data;
 
 
   return (
     <div className='pt-15'>
 
-      <Container list={brands} name={"Brands"}/>
+      <Container list={brands} name={"Brands"} />
 
     </div>
-  )
+  );
 }
 
-export default BrandsPage
+export default BrandsPage;

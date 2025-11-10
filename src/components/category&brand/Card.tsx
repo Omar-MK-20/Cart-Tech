@@ -1,25 +1,27 @@
-"use client"
+"use client";
 import { getInitials } from '@/helpers/initials';
 import { BrandI, CategoryI } from '@/interfaces';
+import { useRouter } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Card, CardHeader } from '../ui/card';
-import { useRouter } from 'next/navigation';
 
-function CardComponent({ item, name }: { item: CategoryI | BrandI, name: string }) {
-    const router = useRouter()
+function CardComponent({ item, name }: { item: CategoryI | BrandI, name: string; })
+{
+    const router = useRouter();
+
+    const navigationConfig = {
+        Categories: `?category[in]=${item._id}`,
+        Brands: `?brand=${item._id}`,
+    };
 
     function handleNavigate()
     {
-        switch (name) {
-            case "Categories":
-                router.push(`/products?category[in]=${item._id}`)
-                break;
-        
-            default:
-                break;
+        const queryString = navigationConfig[name as keyof typeof navigationConfig];
+        if (queryString)
+        {
+            router.push(`/products${queryString}`);
         }
     }
-
     return (
         <Card
             className="w-full max-w-sm cursor-pointer transition-all hover:shadow-md"
@@ -44,4 +46,4 @@ function CardComponent({ item, name }: { item: CategoryI | BrandI, name: string 
     );
 }
 
-export default CardComponent
+export default CardComponent;

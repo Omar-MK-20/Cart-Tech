@@ -1,8 +1,9 @@
-import { BrandI, CategoryI } from '@/interfaces'
-import React from 'react'
-import CardComponent from './Card'
+import { BrandI, CategoryI } from '@/interfaces';
+import React from 'react';
+import CardComponent from './Card';
 
-function Container({ list, name }: { list: CategoryI[] | BrandI[], name: string }) {
+function Container({ list, name }: { list: CategoryI[] | BrandI[], name: string; })
+{
     return (
         <div>
             <div className="container mx-auto px-4 py-8">
@@ -29,7 +30,7 @@ function Container({ list, name }: { list: CategoryI[] | BrandI[], name: string 
 
             </div>
         </div>
-    )
+    );
 }
 
-export default Container
+export default Container;
