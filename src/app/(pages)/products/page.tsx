@@ -1,59 +1,74 @@
-"use client"
+"use client";
 
-import Loading from '@/app/loading'
-import NotFound from '@/app/not-found'
-import ProductContainer from '@/components/product/ProductContainer'
-import { GetAllResponseI, ProductI } from '@/interfaces'
-import { productService } from '@/services/product'
-import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import Loading from '@/app/loading';
+import NotFound from '@/app/not-found';
+import ProductContainer from '@/components/product/ProductContainer';
+import { ProductI } from '@/interfaces';
+import { productService } from '@/services/product';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useMemo, useState } from 'react';
 
-function ProductPage() {
+function ProductPage()
+{
 
   const searchParams = useSearchParams();
   const categoryId = searchParams.get("category[in]");
+  const brandId = searchParams.get("brand");
+
+  const [products, setProducts] = useState<ProductI[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
 
-  const [products, setProducts] = useState<ProductI[] | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const filteredProducts = useMemo(() =>
+  {
+    return products.filter(product =>
+    {
+      const matchesBrand = !brandId || product.brand._id === brandId;
+      const matchesCategory = !categoryId || product.category._id === categoryId;
+      return matchesBrand && matchesCategory;
+    });
+  }, [products, brandId, categoryId]);
 
-  async function getProducts() {
+
+  async function getProducts() 
+  {
     setIsLoading(true);
-    let res: GetAllResponseI<ProductI>
-    if(categoryId)
+    try 
     {
-      res = await productService.getByCategory(categoryId)
+      const res = await productService.getAll();
+      setProducts(res.data);
     }
-    else
+    catch (error) 
     {
-      res = await productService.getAll();
+      console.error("error in the product page", error);
+      throw Error();
     }
-    setProducts(res.data);
-    setIsLoading(false);
+    finally 
+    {
+      setIsLoading(false);
+    }
   }
 
 
 
 
-
-  useEffect(() => {
+  useEffect(() =>
+  {
     getProducts();
-  }, [categoryId])
+  }, []);
 
   return (
-
     <div className='pt-10'>
-      {isLoading
-        ?
+      {isLoading ? (
         <Loading />
-        :
-        !products
-          ?
-          <NotFound/>
-          :
-          <ProductContainer products={products} />}
+      ) : !products.length ? (
+        <NotFound />
+      ) : (
+        // Choose one of the transition containers above
+        <ProductContainer products={filteredProducts} />
+      )}
     </div>
-  )
+  );
 }
 
-export default ProductPage
+export default ProductPage;
