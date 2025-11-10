@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cart-Tech
+
+Cart-Tech is an in-progress e-commerce frontend built with Next.js 15 and React 19. It targets a clean, modern UI using Radix UI primitives, Tailwind CSS v4, and Lucide icons. The app integrates with an external commerce API and supports images from `ecommerce.routemisr.com` for products, brands, and categories.
+
+- **Status**: Work-in-progress
+- **Active development branch**: `dev` (latest features land here first)
+- **Default branch**: `main`
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router, RSC)
+- **Language**: TypeScript
+- **UI**: Radix UI, Tailwind CSS v4, shadcn/ui config (style: new-york)
+- **Icons**: lucide-react
+- **Tooling**: ESLint (Next + TS), Turbopack for dev/build
+
+## Project Structure
+
+- `src/` — application source (App Router, components, hooks, lib, styles)
+- `public/` — static assets
+- `next.config.ts` — Next.js configuration (image remote patterns set for routemisr CDN)
+- `components.json` — shadcn/ui configuration and path aliases
 
 ## Getting Started
 
-First, run the development server:
+Prerequisites: Node 18+ recommended.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1) Install dependencies:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    ```bash
+    npm install
+    ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2) Start the dev server:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    ```bash
+    npm run dev
+    ```
 
-## Learn More
+3) Open the app at:
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    http://localhost:3000
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `npm run dev` — Start development server (Turbopack)
+- `npm run build` — Build production bundle (Turbopack)
+- `npm run start` — Start production server
+- `npm run lint` — Run ESLint
 
-## Deploy on Vercel
+## Image Domains
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Configured in `next.config.ts`:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `https://ecommerce.routemisr.com/Route-Academy-products/**`
+- `https://ecommerce.routemisr.com/Route-Academy-brands/**`
+- `https://ecommerce.routemisr.com/Route-Academy-categories/**`
+
+## API Tasks
+
+This checklist tracks planned and completed API features. Work is ongoing; check `dev` for the latest.
+
+- [ ] Introduction
+
+- [x] Categories
+  - [x] GET — Get All Categories
+  - [ ] GET — Get specific category
+
+- [ ] SubCategories
+  - [ ] GET — Get All SubCategories
+  - [ ] GET — Get specific SubCategory
+  - [ ] GET — Get All SubCategories On Category
+
+- [x] Brands
+  - [x] GET — Get All Brands
+  - [ ] GET — Get specific brand
+
+- [x] Products
+  - [x] GET — Get All Products
+  - [x] GET — Get specific Product
+
+- [ ] Authentication
+  - [ ] POST — Signup
+  - [ ] POST — signin
+  - [ ] POST — Forgot Password
+  - [ ] POST — Verify Reset Code
+  - [ ] PUT — Update Logged user password
+  - [ ] PUT — Reset Password
+  - [ ] PUT — Update Logged user data
+  - [ ] GET — Get All Users
+  - [ ] GET — Verify Token
+
+- [ ] Wishlist
+  - [ ] POST — Add product to wishlist
+  - [ ] DEL — Remove product from wishlist
+  - [ ] GET — Get logged user wishlist
+
+- [ ] User Addresses
+  - [ ] POST — Add address
+  - [ ] DEL — Remove address
+  - [ ] GET — Get specific address
+  - [ ] GET — Get logged user addresses
+
+- [ ] Cart
+  - [ ] POST — Add Product To Cart
+  - [ ] PUT — Update cart product quantity
+  - [ ] GET — Get Logged user cart
+  - [ ] DEL — Remove specific cart Item
+  - [ ] DEL — Clear user cart
+
+- [ ] Orders
+  - [ ] POST — Create Cash Order
+  - [ ] POST — Checkout session
+  - [ ] GET — getAllOrders
+  - [ ] GET — getUserOrders
+
+## Development Workflow
+
+- Use feature branches off `dev`.
+- Open PRs into `dev`; `main` is kept stable and updated periodically.
+- Lint before committing: `npm run lint`.
+
+## Contributing
+
+Contributions are welcome. Please:
+
+- Discuss large changes via an issue first.
+- Ensure changes build and pass lint.
+- Keep PRs focused and well-described.
+
+## License
+
+This project is for learning and demonstration purposes. Please add an appropriate license if you plan to distribute or use this code commercially.
