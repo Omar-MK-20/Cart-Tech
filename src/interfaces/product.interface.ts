@@ -1,5 +1,5 @@
-import { BrandI } from "./brand"
-import { CategoryI, SubCategoryI } from "./category"
+import { BrandI } from "./brand.interface"
+import { CategoryI, SubCategoryI } from "./category.interface"
 
 export interface ProductI {
     sold: number
