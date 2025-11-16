@@ -1,0 +1,26 @@
+// interfaces.ts
+export interface AuthResponseI
+{
+    message: string;
+    user: {
+        name: string;
+        email: string;
+        role: string;
+    };
+    token: string;
+}
+
+export interface SignInBodyI
+{
+    email: string;
+    password: string;
+}
+
+export interface SignUpBodyI
+{
+    name: string;
+    email: string;
+    password: string;
+    rePassword: string;
+    phone: string;
+}
