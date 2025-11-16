@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/helpers/currency";
 import { renderStars } from "@/helpers/rating";
 import { ProductI } from "@/interfaces";
-import { productService } from "@/services/product";
+import { productService } from "@/services/product.service";
 import { Heart, RotateCcw, Shield, ShoppingCart, Truck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

@@ -1,6 +1,6 @@
 import Container from '@/components/category&brand/Container';
 import { CategoryI } from '@/interfaces';
-import { categoriesServices } from '@/services/categories';
+import { categoriesServices } from '@/services/categories.service';
 
 async function CategoriesPage() {
 

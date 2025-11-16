@@ -4,7 +4,7 @@ import Loading from '@/app/loading';
 import NotFound from '@/app/not-found';
 import ProductContainer from '@/components/product/ProductContainer';
 import { ProductI } from '@/interfaces';
-import { productService } from '@/services/product';
+import { productService } from '@/services/product.service';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 

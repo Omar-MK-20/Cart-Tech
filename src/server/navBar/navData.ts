@@ -1,6 +1,6 @@
 import { CategoryI } from "@/interfaces"
-import { brandService } from "@/services/brand"
-import { categoriesServices } from "@/services/categories"
+import { brandService } from "@/services/brand.service"
+import { categoriesServices } from "@/services/categories.service"
 
 // export const categories: CategoryI[] = [
 //     {
