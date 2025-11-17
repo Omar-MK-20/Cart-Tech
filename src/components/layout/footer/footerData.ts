@@ -4,8 +4,8 @@ export const footerSections = [
     {
       title: "Shop",
       links: [
-        { title: "Electronics", href: "/electronics" },
-        { title: "Fashion", href: "/fashion" },
+        { title: "Electronics", href: "/products?category[in]=6439d2d167d9aa4ca970649f" },
+        { title: "Fashion", href: "/products?category[in]=6439d5b90049ad0b52b90048&category[in]=6439d58a0049ad0b52b9003f" },
         { title: "Home & Garden", href: "/home" },
         { title: "Sports", href: "/sports" },
         { title: "Deals", href: "/deals" },

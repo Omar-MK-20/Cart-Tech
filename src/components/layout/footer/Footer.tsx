@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
+import
+{
   BadgeCent,
   Mail,
   MapPin,
@@ -11,7 +12,8 @@ import { footerSections, socialLinks } from "./footerData";
 
 
 
-export function Footer() {
+export function Footer()
+{
   return (
     <footer className="bg-muted/30 border-t">
       <div className="container mx-auto px-4 py-12">
@@ -118,7 +120,12 @@ export function Footer() {
         {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 text-sm text-muted-foreground">
           <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-            <p>&copy; 2024 CartTech. All rights reserved.</p>
+            <p>&copy; 2025 <Link
+              href="https://github.com/Omar-MK-20"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold hover:text-foreground transition-colors"
+            >Omar MK</Link>. All rights reserved.</p>
             <div className="hidden md:block">•</div>
             <div className="flex items-center space-x-4">
               <Link
