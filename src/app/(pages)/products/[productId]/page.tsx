@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/helpers/currency";
 import { renderStars } from "@/helpers/rating";
 import { ProductI } from "@/interfaces";
+import { RequestError } from "@/services/error.service";
 import { productService } from "@/services/product.service";
 import { Heart, RotateCcw, Shield, ShoppingCart, Truck } from "lucide-react";
 import Image from "next/image";
@@ -12,44 +13,62 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function ProductDetailPage() {
+export default function ProductDetailPage()
+{
     const { productId } = useParams();
 
     const [product, setProduct] = useState<null | ProductI>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState<null | number>(null);
 
-    async function getSingleProduct(Id: string | string[]) {
+    async function getSingleProduct(Id: string | string[])
+    {
         setLoading(true);
-        const res = await productService.getSingle(Id);
-        setProduct(res.data);
-        setLoading(false);
-    }
 
-    useEffect(() => {
-        if (productId) {
+        const res = await productService.getSingle(Id);
+        if (!(res instanceof RequestError))
+        {
+            setProduct(res.data);
+            setLoading(false);
+
+        } else
+        {
+            setError(res.message);
+            setLoading(false);
+        }
+    }
+    useEffect(() =>
+    {
+        if (productId)
+        {
             getSingleProduct(productId);
         }
     }, [productId]);
 
-    if (loading) {
+    if (loading)
+    {
         return (
             <div className="container mx-auto px-4 py-8 pt-20">
                 <div className="flex justify-center items-center min-h-[400px]">
-                    <Loading/>
+                    <Loading />
                 </div>
             </div>
         );
     }
 
-    if (error || !product) {
+    if (!(error === null) || !product)
+    {
         return (
             <div className="container mx-auto px-4 py-8 pt-20">
                 <div className="text-center">
-                    <p className="text-red-500 mb-4">
-                        {error || "Product not found"}
-                    </p>
+                    <div className="text-red-500 mb-4">
+                        <div className="flex justify-center">
+                            <p className="h-20 w-fit px-3 font-semibold text-destructive bg-destructive/10 rounded-2xl flex items-center justify-center">
+                                {error || "Product not found"}
+                            </p>
+                        </div>
+                    </div>
                     <Button onClick={() => window.history.back()}>
                         Go Back
                     </Button>
