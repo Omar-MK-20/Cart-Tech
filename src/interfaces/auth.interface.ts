@@ -1,4 +1,3 @@
-// interfaces.ts
 export interface AuthResponseI
 {
     message: string;

@@ -1,11 +1,12 @@
 import { GetAllResponseI, GetSingleResponseI, BrandI } from "@/interfaces";
+import { RequestError } from "./error.service";
 
 class BrandServices
 {
     private baseUrl: string = process.env.NEXT_PUBLIC_BASE_URL ?? "";
     private endpoint: string = "brands";
 
-    private async request<T>(url: string): Promise<T>
+    private async request<T>(url: string): Promise<T | RequestError>
     {
         try
         {
@@ -20,7 +21,7 @@ class BrandServices
                     data?.errors?.msg ||
                     "Something went wrong";
 
-                throw new Error(message);
+                return new RequestError(message, res.status, data);
             }
 
             return data as T;
@@ -28,22 +29,20 @@ class BrandServices
         {
             if (err instanceof Error)
             {
-                throw new Error(err.message);
+                return new RequestError(err.message);
             }
 
-            // fallback for non-Error exceptions
-            throw new Error("Network error");
+            return new RequestError("Network error");
         }
     }
 
-    
-    public async getAll(): Promise<GetAllResponseI<BrandI>>
+    public async getAll(): Promise<GetAllResponseI<BrandI> | RequestError>
     {
         const url = `${this.baseUrl}${this.endpoint}`;
         return await this.request<GetAllResponseI<BrandI>>(url);
     }
 
-    public async getSingle(brandId: string): Promise<GetSingleResponseI<BrandI>>
+    public async getSingle(brandId: string): Promise<GetSingleResponseI<BrandI> | RequestError>
     {
         const url = `${this.baseUrl}${this.endpoint}/${brandId}`;
         return await this.request<GetSingleResponseI<BrandI>>(url);

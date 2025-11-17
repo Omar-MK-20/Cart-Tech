@@ -1,11 +1,12 @@
 import { GetAllResponseI, GetSingleResponseI, CategoryI } from "@/interfaces";
+import { RequestError } from "./error.service";
 
 class CategoriesServices
 {
     private baseUrl: string = process.env.NEXT_PUBLIC_BASE_URL ?? "";
     private endpoint: string = "categories";
 
-    private async request<T>(url: string): Promise<T>
+    private async request<T>(url: string): Promise<T | RequestError>
     {
         try
         {
@@ -20,7 +21,7 @@ class CategoriesServices
                     data?.errors?.msg ||
                     "Something went wrong";
 
-                throw new Error(message);
+                return new RequestError(message, res.status, data);
             }
 
             return data as T;
@@ -28,22 +29,20 @@ class CategoriesServices
         {
             if (err instanceof Error)
             {
-                throw new Error(err.message);
+                return new RequestError(err.message);
             }
 
-            // fallback for non-Error exceptions
-            throw new Error("Network error");
+            return new RequestError("Network error");
         }
     }
 
-
-    public async getAll(): Promise<GetAllResponseI<CategoryI>>
+    public async getAll(): Promise<GetAllResponseI<CategoryI> | RequestError>
     {
         const url = `${this.baseUrl}${this.endpoint}`;
         return await this.request<GetAllResponseI<CategoryI>>(url);
     }
 
-    public async getSingle(categoryId: string): Promise<GetSingleResponseI<CategoryI>>
+    public async getSingle(categoryId: string): Promise<GetSingleResponseI<CategoryI> | RequestError>
     {
         const url = `${this.baseUrl}${this.endpoint}/${categoryId}`;
         return await this.request<GetSingleResponseI<CategoryI>>(url);
