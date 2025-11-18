@@ -1,6 +1,6 @@
 export interface GetAllResponseI<T>
 {
-  result: number;
+  results: number;
   metadata: {
     currentPage: number,
     numberOfPages: number,
