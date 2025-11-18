@@ -4,19 +4,22 @@ import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/helpers/currency";
 import { renderStars } from "@/helpers/rating";
 import { ProductI } from "@/interfaces";
-import { ArrowUpRight, Heart, ShoppingCart } from "lucide-react";
+import { ArrowUpRight, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-interface ProductCardProps {
+interface ProductCardProps
+{
     product: ProductI;
     viewMode?: "grid" | "list";
 }
 
-export function ProductCard({ product, viewMode = "grid" }: ProductCardProps) {
+export function ProductCard({ product, viewMode = "grid" }: ProductCardProps)
+{
     // const navigate = Navigate
 
-    if (viewMode === "list") {
+    if (viewMode === "list")
+    {
         return (
             <div className="flex gap-4 p-4 border rounded-lg hover:shadow-md transition-shadow ">
                 <div className="relative w-32 h-32 flex-shrink-0">

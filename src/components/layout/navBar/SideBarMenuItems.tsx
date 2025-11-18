@@ -1,17 +1,18 @@
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarTrigger } from '@/components/ui';
 import { useIsMobile } from '@/hooks/use-mobile';
 import dynamic from 'next/dynamic';
-import { NavItemI } from "./navInterfaces";
-import { BadgeCent } from 'lucide-react';
 import Link from 'next/link';
+import { NavItemI } from "./navInterfaces";
 
 
 
-function NavBarMenuItems({ navList }: { navList: NavItemI[] }) {
+function NavBarMenuItems({ navList }: { navList: NavItemI[]; })
+{
 
     const isMobile = useIsMobile();
 
-    if (isMobile) {
+    if (isMobile)
+    {
         return (
 
             <>
@@ -42,10 +43,10 @@ function NavBarMenuItems({ navList }: { navList: NavItemI[] }) {
                 </Sidebar>
             </>
 
-        )
+        );
     }
 
 
 }
 
-export default dynamic(() => Promise.resolve(NavBarMenuItems), { ssr: false })
+export default dynamic(() => Promise.resolve(NavBarMenuItems), { ssr: false });
