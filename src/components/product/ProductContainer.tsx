@@ -5,11 +5,29 @@ import { Grid, List } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '../ui'
 import { ProductCard } from './ProductCard'
+import { useSearchParams } from 'next/navigation';
+import { capitalize } from '@/helpers/capitalize';
 
 function ProductContainer({ products }: { products: ProductI[] }) {
 
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+  // const [title, setTitle] = useState<null | string>(null)
+  let title: null | string = null
 
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+  const searchParams = useSearchParams()
+
+  if (searchParams.get('category[in]'))
+  {
+    title = products[0]?.category.name
+  }
+  else if (searchParams.get('brand'))
+  {
+    title = products[0]?.brand.name
+  }
+  else
+  {
+    title = null
+  }
 
 
 
@@ -18,7 +36,7 @@ function ProductContainer({ products }: { products: ProductI[] }) {
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4">Products</h1>
+        <h1 className="text-3xl font-bold mb-4">{title ? capitalize(title) : "Products"}</h1>
         <p className="text-muted-foreground">
           Discover amazing products from our collection
         </p>
