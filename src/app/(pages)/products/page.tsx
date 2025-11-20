@@ -75,7 +75,7 @@ function ProductPage()
   }, []); // only on mount
 
   return (
-    <div className="pt-10">
+    <div>
       {isLoading ? (
         <Loading />
       ) : error ? (

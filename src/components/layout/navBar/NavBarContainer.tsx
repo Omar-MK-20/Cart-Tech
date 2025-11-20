@@ -1,14 +1,11 @@
-
-
-import { SidebarProvider } from '@/components/ui'
-import React from 'react'
-import { NavBar } from './NavBar'
-import { brands, categories } from "../../../server/navBar/navData";
+import { SidebarProvider } from '@/components/ui';
+import { brands, categories } from '@/server/navBar/navData';
+import { NavBar } from './NavBar';
 
 
 function NavBarContainer() {
     return (
-        <header className="max-h-10">
+        <header>
             <SidebarProvider>
                 <header className="fixed w-full backdrop-blur-md shadow-sm z-100">
                     <NavBar brands={brands} categories={categories} />
@@ -18,4 +15,4 @@ function NavBarContainer() {
     )
 }
 
-export { NavBarContainer }
+export { NavBarContainer };

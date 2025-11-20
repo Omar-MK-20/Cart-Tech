@@ -19,7 +19,7 @@ async function BrandsPage()
   }
 
   return (
-    <div className='pt-15'>
+    <div>
 
       <Container list={brands} name={"Brands"} />
 

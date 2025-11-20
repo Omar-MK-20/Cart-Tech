@@ -19,7 +19,7 @@ async function CategoriesPage()
   }
 
   return (
-    <div className='pt-15'>
+    <div>
 
       <Container list={categories} name={"Categories"} />
 
