@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/helpers/currency";
+import { formatNumberWithSuffix } from "@/helpers/formatNumber";
 import { renderStars } from "@/helpers/rating";
 import { ProductI } from "@/interfaces";
 import { ArrowUpRight, ShoppingCart } from "lucide-react";
@@ -21,15 +22,21 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps)
     if (viewMode === "list")
     {
         return (
-            <div className="flex gap-4 p-4 border rounded-lg hover:shadow-md transition-shadow ">
-                <div className="relative w-32 h-32 flex-shrink-0">
-                    <Image
-                        src={product.imageCover}
-                        alt={product.title}
-                        fill
-                        className="object-cover rounded-2xl"
-                        sizes="128px"
-                    />
+            <div className="flex gap-4 p-4 border rounded-lg hover:shadow-md transition-shadow">
+                <div className="flex flex-col justify-between items-center">
+                    <div className="relative w-32 h-32 flex-shrink-0">
+                        <Image
+                            src={product.imageCover}
+                            alt={product.title}
+                            fill
+                            className="object-cover rounded-2xl"
+                            sizes="128px"
+                        />
+
+                    </div>
+                    <span className="text-2xl font-bold text-primary">
+                        {formatPrice(product.price)}
+                    </span>
                 </div>
 
                 <div className="flex-1 min-w-0">
@@ -43,62 +50,59 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps)
                             </Link>
                         </h3>
                         <Link
-                            className="absolute top-2 right-2 group-hover:opacity-100 bg-white/80 hover:bg-slate-700/80 border-2 hover:text-white rounded-md transition-all"
+                            className="absolute -top-2 sm:top-2 -right-2 sm:right-2  group-hover:opacity-100 bg-white/80 hover:bg-slate-700/80 border-2 hover:text-white rounded-md transition-all"
                             href={`/products/${product.id}`}
                         >
                             <ArrowUpRight className="h-6 w-6" />
                         </Link>
                     </div>
 
-                    <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+                    <p className="text-sm text-muted-foreground mb-3 line-clamp-1 sm:line-clamp-2">
                         {product.description}
                     </p>
 
-                    <div className="flex items-center gap-4 mb-3">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-3">
                         <div className="flex items-center gap-1">
                             {renderStars(product.ratingsAverage)}
                             <span className="text-sm text-muted-foreground ml-1">
-                                ({product.ratingsQuantity})
+                                ({formatNumberWithSuffix(product.ratingsQuantity)})
                             </span>
                         </div>
 
                         <span className="text-sm text-muted-foreground">
-                            {product.sold} sold
+                            {formatNumberWithSuffix(product.sold)} sold
                         </span>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                        <div className="flex flex-col gap-1">
-                            <span className="text-2xl font-bold text-primary">
-                                {formatPrice(product.price)}
-                            </span>
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                                <span>
-                                    Brand:{" "}
-                                    <Link
-                                        href={`/brands/${product.brand._id}`}
-                                        className="hover:text-primary hover:underline transition-colors"
-                                    >
-                                        {product.brand.name}
-                                    </Link>
-                                </span>
-                                <span>
-                                    Category:{" "}
-                                    <Link
-                                        href={`/categories/${product.category._id}`}
-                                        className="hover:text-primary hover:underline transition-colors"
-                                    >
-                                        {product.category.name}
-                                    </Link>
-                                </span>
-                            </div>
-                        </div>
+                    {/* <div className="flex items-center"> */}
+                    <div className="flex flex-col sm:flex-row md:justify-between gap-3">
 
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            <span>
+                                Brand:{" "}
+                                <Link
+                                    href={`/products?brand=${product.brand._id}`}
+                                    className="hover:text-primary hover:underline transition-colors"
+                                >
+                                    {product.brand.name}
+                                </Link>
+                            </span>
+                            <span>
+                                Category:{" "}
+                                <Link
+                                    href={`/products?category[in]=${product.category._id}`}
+                                    className="hover:text-primary hover:underline transition-colors"
+                                >
+                                    {product.category.name}
+                                </Link>
+                            </span>
+                        </div>
                         <Button>
                             <ShoppingCart className="h-4 w-4 mr-2" />
                             Add to Cart
                         </Button>
                     </div>
+                    {/* </div> */}
                 </div>
             </div>
         );
@@ -142,9 +146,11 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps)
             {/* Product Info */}
             <div className="p-4">
                 {/* Brand */}
-                <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">
+                <Link
+                    href={`/products?brand=${product.brand._id}`}
+                    className="text-xs text-muted-foreground mb-1 uppercase tracking-wide hover:text-primary hover:underline transition-colors">
                     {product.brand.name}
-                </p>
+                </Link>
 
                 {/* Title */}
                 <h3 className="font-semibold text-sm mb-2 line-clamp-2 hover:text-primary transition-colors">
@@ -164,7 +170,7 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps)
                 {/* Category */}
                 <p className="text-xs text-muted-foreground mb-2">
                     <Link
-                        href={""}
+                        href={`/products?category[in]=${product.category._id}`}
                         className="hover:text-primary hover:underline transition-colors"
                     >
                         {product.category.name}
@@ -177,7 +183,7 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps)
                         {formatPrice(product.price)}
                     </span>
                     <span className="text-xs text-muted-foreground">
-                        {product.sold} sold
+                        {formatNumberWithSuffix(product.sold)} sold
                     </span>
                 </div>
 
