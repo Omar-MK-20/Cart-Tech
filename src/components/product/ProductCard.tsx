@@ -136,7 +136,7 @@ export function ProductCard({ product, viewMode = "grid" }: ProductCardProps)
                 {/* </Button> */}
 
                 {/* Badge for sold items */}
-                {product.sold > 100 && (
+                {product.sold > 1000 && (
                     <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
                         Popular
                     </div>

@@ -17,6 +17,12 @@ function ProductPage()
   // Memoize parsed query arrays so their identity is stable across renders
   const categoryIds = useMemo(() => searchParams.getAll('category[in]'), [searchParams]);
   const brandIds = useMemo(() => searchParams.getAll('brand'), [searchParams]);
+  const minPrice = useMemo(() => Number(searchParams.get('price[gte]') ?? 0), [searchParams]);
+  const popularParam = searchParams.get("popular");
+  // possible values: "true" | "false" | null
+
+
+
 
   const [products, setProducts] = useState<ProductI[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -28,22 +34,30 @@ function ProductPage()
   // This is the typical AND-between-filter-groups behavior.
   const filteredProducts = useMemo(() =>
   {
-    // If no filters, just return all products fast
-    if (!categoryIds.length && !brandIds.length) return products;
+    const hasPopularFilter = popularParam === "true" || popularParam === "false";
 
-    // otherwise check each product
+    // Fast return if no filters active
+    if (!categoryIds.length && !brandIds.length && !minPrice && !hasPopularFilter)
+    {
+      return products;
+    }
+
     return products.filter((product) =>
     {
-      const matchesCategory =
-        categoryIds.length === 0 || categoryIds.some((id) => product.category._id === id);
+      const matchesCategory = categoryIds.length === 0 || categoryIds.some((id) => product.category._id === id);
 
-      const matchesBrand =
-        brandIds.length === 0 || brandIds.some((id) => product.brand._id === id);
+      const matchesBrand = brandIds.length === 0 || brandIds.some((id) => product.brand._id === id);
 
-      // require both groups to match (if a group has no selected values it is treated as match)
-      return matchesCategory && matchesBrand;
+      const matchesPrice = minPrice === 0 || product.price >= minPrice;
+
+      // Popular filter:
+      let matchesPopular = true;
+      if (popularParam === "true") matchesPopular = product.sold > 1000;
+      if (popularParam === "false") matchesPopular = product.sold <= 1000;
+
+      return (matchesCategory && matchesBrand && matchesPrice && matchesPopular);
     });
-  }, [products, categoryIds, brandIds]);
+  }, [products, categoryIds, brandIds, minPrice, popularParam]);
 
   // Robust paginated fetching: we attempt to iterate pages until we detect there is no next page.
   // We support common pagination shapes (res.meta.totalPages, res.meta.hasNext, res.pagination, etc).
