@@ -11,10 +11,10 @@ export default function RootLayout({
 }>)
 {
   return (
-    <body>
+    <div>
       <div className="py-15">
         {children}
       </div>
-    </body>
+    </div>
   );
 }
