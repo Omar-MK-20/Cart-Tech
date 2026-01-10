@@ -50,13 +50,13 @@ class ProductServices
     {
         const page = options?.page ?? 1;
 
-        const buildUrl = (p: number) =>
+        const buildUrl = (page: number) =>
         {
             // append page as query param
             const sep = this.baseUrl.endsWith("/") ? "" : "/";
             const endpointPath = `${this.baseUrl}${sep}${this.endpoint}`;
             const url = new URL(endpointPath);
-            url.searchParams.set("page", String(p));
+            url.searchParams.set("page", String(page));
             return url.toString();
         };
 
