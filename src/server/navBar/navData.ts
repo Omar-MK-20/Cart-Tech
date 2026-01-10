@@ -15,6 +15,11 @@ if (!(catRes instanceof RequestError) && !(brandRes instanceof RequestError))
     categories = catRes.data;
     brands = brandRes.data;
 }
+else
+{
+    categories = [];
+    brands = [];
+}
 
 export { categories, brands };
 
