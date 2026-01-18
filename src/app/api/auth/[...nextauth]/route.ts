@@ -39,11 +39,32 @@ const handler = NextAuth({
                     token: response.token
                 };
 
+                console.log({ AuthUser: user });
+
                 return user;
             }
         })
 
     ],
+    callbacks: {
+        async jwt({ token, account, user, profile, session, trigger })
+        {
+            console.log({ jwt: { token, account, user, profile, session, trigger } });
+            if (user)
+            {
+                token.accessToken = user.token;
+            }
+            return token;
+        },
+        async session({ session, token, user, trigger, newSession })
+        {
+            console.log({ session: { session, token, user, trigger, newSession } });
+            session.accessToken = token.accessToken;
+
+            return session;
+        },
+    }
+    ,
     pages: {
         signIn: "/auth/login"
     }
