@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { BrandI, CategoryI } from "@/interfaces";
 import { BadgeCent, Building2, ListTree, ShoppingCart, SwatchBook, User } from "lucide-react";
@@ -7,13 +7,17 @@ import { Button } from "../../ui";
 import NavBarMenuItems from "./NavBarMenuItems";
 import { NavItemI } from "./navInterfaces";
 import SideBarMenuItems from "./SideBarMenuItems";
+import { useSession } from "next-auth/react";
 
 
 
 
 
-function NavBar({ brands, categories }: { brands: BrandI[], categories: CategoryI[] }) {
+function NavBar({ brands, categories }: { brands: BrandI[], categories: CategoryI[]; })
+{
 
+    const session = useSession()
+    console.log({session})
 
 
     const navList: NavItemI[] =
@@ -36,7 +40,7 @@ function NavBar({ brands, categories }: { brands: BrandI[], categories: Category
                 label: "Brands",
                 children: brands.map((brand: BrandI) => ({ parent: `brands`, label: brand.name, _id: brand._id }))
             },
-        ]
+        ];
 
 
 
@@ -79,7 +83,7 @@ function NavBar({ brands, categories }: { brands: BrandI[], categories: Category
 
             </nav>
         </>
-    )
+    );
 }
 
 export { NavBar };
