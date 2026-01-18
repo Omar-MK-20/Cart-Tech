@@ -3,29 +3,29 @@
 import { SignInBodyI } from '@/interfaces/auth.interface';
 import { loginSchema } from '@/server/auth/loginSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
+import { useForm } from 'react-hook-form';
 
 import { Button } from "@/components/ui/button";
 import
-{
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+  } from "@/components/ui/card";
 import
-{
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel
-} from "@/components/ui/field";
+  {
+    Field,
+    FieldError,
+    FieldGroup,
+    FieldLabel
+  } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Controller } from "react-hook-form";
 import { useRouter } from 'next/navigation';
+import { Controller } from "react-hook-form";
 
 
 
@@ -33,6 +33,7 @@ import { useRouter } from 'next/navigation';
 function LoginPage()
 {
   const router = useRouter();
+
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -46,7 +47,7 @@ function LoginPage()
 
   async function onSubmit(values: SignInBodyI)
   {
-    console.log(values);
+    // console.log(values);
 
     try
     {
@@ -57,7 +58,7 @@ function LoginPage()
       });
 
       // alert(JSON.stringify(response?.error));
-      console.log({ response });
+      // console.log({ response });
 
       if (response?.ok)
       {
