@@ -1,6 +1,6 @@
 "use client";
 
-import { SignInBodyI } from '@/interfaces/auth.interface';
+import { LogInBodyI } from '@/interfaces/auth.interface';
 import { loginSchema } from '@/server/auth/loginSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from 'next-auth/react';
@@ -8,21 +8,21 @@ import { useForm } from 'react-hook-form';
 
 import { Button } from "@/components/ui/button";
 import
-  {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/card";
+{
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import
-  {
-    Field,
-    FieldError,
-    FieldGroup,
-    FieldLabel
-  } from "@/components/ui/field";
+{
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useRouter } from 'next/navigation';
 import { Controller } from "react-hook-form";
@@ -38,14 +38,14 @@ function LoginPage()
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "mohammed+1@gmail.com",
-      password: "Mohamed@123"
+      email: "omarMK@email.com",
+      password: "OmarMK@123"
     },
     mode: 'onChange'
   });
 
 
-  async function onSubmit(values: SignInBodyI)
+  async function onSubmit(values: LogInBodyI)
   {
     // console.log(values);
 

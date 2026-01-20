@@ -9,7 +9,7 @@ export interface AuthResponseI
     token: string;
 }
 
-export interface SignInBodyI
+export interface LogInBodyI
 {
     email: string;
     password: string;

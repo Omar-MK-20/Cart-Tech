@@ -1,4 +1,4 @@
-import { AuthResponseI, SignInBodyI, SignUpBodyI } from "@/interfaces/auth.interface";
+import { AuthResponseI, LogInBodyI, SignUpBodyI } from "@/interfaces/auth.interface";
 
 
 class AuthServices
@@ -43,7 +43,7 @@ class AuthServices
         }
     }
 
-    public async signin(credentials: SignInBodyI): Promise<AuthResponseI>
+    public async signin(credentials: LogInBodyI): Promise<AuthResponseI>
     {
         const url = `${this.baseUrl}${this.endpoint}/signin`;
         return await this.request<AuthResponseI>(url, {
