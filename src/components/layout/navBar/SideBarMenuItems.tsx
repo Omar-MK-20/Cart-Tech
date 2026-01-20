@@ -1,12 +1,11 @@
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarTrigger } from '@/components/ui';
 import { useIsMobile } from '@/hooks/use-mobile';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { NavItemI } from "./navInterfaces";
 
 
 
-function NavBarMenuItems({ navList }: { navList: NavItemI[]; })
+function SideBarMenuItems({ navList }: { navList: NavItemI[]; })
 {
 
     const isMobile = useIsMobile();
@@ -49,4 +48,4 @@ function NavBarMenuItems({ navList }: { navList: NavItemI[]; })
 
 }
 
-export default dynamic(() => Promise.resolve(NavBarMenuItems), { ssr: false });
+export default SideBarMenuItems;
