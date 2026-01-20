@@ -1,13 +1,17 @@
 "use client";
 
+import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { BrandI, CategoryI } from "@/interfaces";
 import { BadgeCent, Building2, ListTree, ShoppingCart, SwatchBook, User } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Button } from "../../ui";
 import NavBarMenuItems from "./NavBarMenuItems";
 import { NavItemI } from "./navInterfaces";
 import SideBarMenuItems from "./SideBarMenuItems";
-import { useSession } from "next-auth/react";
 
 
 
@@ -15,9 +19,16 @@ import { useSession } from "next-auth/react";
 
 function NavBar({ brands, categories }: { brands: BrandI[], categories: CategoryI[]; })
 {
+    const session = useSession();
+    const router = useRouter();
 
-    const session = useSession()
-    console.log({session})
+    const [mounted, setMounted] = useState(false);
+    useEffect(() =>
+    {
+        setMounted(true);
+    }, []);
+    if (!mounted) return null;
+
 
 
     const navList: NavItemI[] =
@@ -62,10 +73,30 @@ function NavBar({ brands, categories }: { brands: BrandI[], categories: Category
 
                     <div className="flex items-center space-x-2">
                         {/* User Account */}
-                        <Button variant="ghost" size="icon">
-                            <User className="h-5 w-5" />
-                            <span className="sr-only">Account</span>
-                        </Button>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button variant="ghost" size="icon">
+                                    <User className="h-5 w-5" />
+                                    <span className="sr-only">Account</span>
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-fit z-200">
+                                {session.status == "loading" && <LoadingSpinner />}
+                                {session.status == "unauthenticated" &&
+                                    <div className="grid w-fit">
+                                        <Button variant={"outline"} onClick={() => router.push('/auth/login')}>
+                                            Login
+                                        </Button>
+                                    </div>
+                                }
+                                {session.status == "authenticated" &&
+                                    <div>
+                                        <p>{session.data.user?.name}</p>
+                                        <p>{session.data.user?.email}</p>
+                                    </div>
+                                }
+                            </PopoverContent>
+                        </Popover>
 
                         {/* Shopping Cart */}
                         <Button variant="ghost" size="icon" className="relative">
