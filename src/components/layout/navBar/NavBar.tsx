@@ -83,9 +83,12 @@ function NavBar({ brands, categories }: { brands: BrandI[], categories: Category
                             <PopoverContent className="w-fit z-200">
                                 {session.status == "loading" && <LoadingSpinner />}
                                 {session.status == "unauthenticated" &&
-                                    <div className="grid w-fit">
+                                    <div className="grid w-fit space-y-2">
                                         <Button variant={"outline"} onClick={() => router.push('/auth/login')}>
                                             Login
+                                        </Button>
+                                        <Button variant={"outline"} onClick={() => router.push('/auth/signup')}>
+                                            Signup
                                         </Button>
                                     </div>
                                 }
