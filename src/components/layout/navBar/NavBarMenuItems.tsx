@@ -1,7 +1,6 @@
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
@@ -9,30 +8,37 @@ import { ChildNavItemI, NavItemI } from "./navInterfaces";
 
 
 
-function NavBarMenuItems({ navList }: { navList: NavItemI[] }) {
+function NavBarMenuItems({ navList }: { navList: NavItemI[]; })
+{
 
     const isMobile = useIsMobile();
     const pathname = usePathname();
 
-    function handleNavigate(child: ChildNavItemI): string {
-        if (child.parent == "categories") {
-            return `/products?category[in]=${child._id}`
+    function handleNavigate(child: ChildNavItemI): string
+    {
+        if (child.parent == "categories")
+        {
+            return `/products?category[in]=${child._id}`;
         }
-        if (child.parent == "brands") {
-            return `/products?brand=${child._id}`
+        if (child.parent == "brands")
+        {
+            return `/products?brand=${child._id}`;
         }
-        else {
-            return '/'
+        else
+        {
+            return '/';
         }
     }
 
-    if (!isMobile) {
+    if (!isMobile)
+    {
         return (
 
             <NavigationMenu className='relative z-100'>
                 <NavigationMenuList>
                     {
-                        navList.map((navItem) => {
+                        navList.map((navItem) =>
+                        {
                             const isActive = pathname.startsWith(navItem.href);
                             return (<React.Fragment key={navItem.href}>
                                 <NavigationMenuItem>
@@ -84,13 +90,13 @@ function NavBarMenuItems({ navList }: { navList: NavItemI[] }) {
                                         }
                                     </div>
                                 </NavigationMenuItem>
-                            </React.Fragment>)
+                            </React.Fragment>);
                         })
                     }
                 </NavigationMenuList>
             </NavigationMenu>
-        )
+        );
     }
 }
 
-export default dynamic(() => Promise.resolve(NavBarMenuItems), { ssr: false })
+export default NavBarMenuItems;
