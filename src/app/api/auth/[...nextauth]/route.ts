@@ -39,7 +39,7 @@ const handler = NextAuth({
                     token: response.token
                 };
 
-                console.log({ AuthUser: user });
+                // console.log({ AuthUser: user });
 
                 return user;
             }
@@ -49,7 +49,7 @@ const handler = NextAuth({
     callbacks: {
         async jwt({ token, account, user, profile, session, trigger })
         {
-            console.log({ jwt: { token, account, user, profile, session, trigger } });
+            // console.log({ jwt: { token, account, user, profile, session, trigger } });
             if (user)
             {
                 token.accessToken = user.token;
@@ -58,7 +58,7 @@ const handler = NextAuth({
         },
         async session({ session, token, user, trigger, newSession })
         {
-            console.log({ session: { session, token, user, trigger, newSession } });
+            // console.log({ session: { session, token, user, trigger, newSession } });
             session.accessToken = token.accessToken;
 
             return session;
@@ -67,7 +67,8 @@ const handler = NextAuth({
     ,
     pages: {
         signIn: "/auth/login"
-    }
+    },
+    secret: "HqDbMIZ1r8Y5VRS6yeEEOEditKhtrYDgViO7p8G6eQo="
 });
 
 export { handler as GET, handler as POST };

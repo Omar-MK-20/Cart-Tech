@@ -26,6 +26,10 @@ import
 import { Input } from "@/components/ui/input";
 import { useRouter } from 'next/navigation';
 import { Controller } from "react-hook-form";
+import { useState } from 'react';
+import { Loader } from 'lucide-react';
+import { Spinner } from '@/components/ui/spinner';
+import { toast } from 'sonner';
 
 
 
@@ -33,6 +37,7 @@ import { Controller } from "react-hook-form";
 function LoginPage()
 {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const form = useForm({
@@ -51,22 +56,30 @@ function LoginPage()
 
     try
     {
+      setIsLoading(true);
+
       const response = await signIn("credentials", {
         email: values.email,
         password: values.password,
         redirect: false
       });
-
-      // alert(JSON.stringify(response?.error));
-      // console.log({ response });
-
+      
       if (response?.ok)
       {
         router.push("/products");
+        toast.success("Login in successful");
       }
+      else
+      {
+        toast.error(response?.error);
+      }
+      setIsLoading(false);
+
     }
     catch (error)
     {
+      setIsLoading(false);
+      toast.error("Error");
       console.log({ error });
     }
   }
@@ -135,7 +148,8 @@ function LoginPage()
             <Button type="button" variant="outline" onClick={() => form.reset()}>
               Reset
             </Button>
-            <Button type="submit" form="form-rhf-demo">
+            <Button disabled={isLoading} type="submit" form="form-rhf-demo" size={"sm"}>
+              {isLoading && <Spinner />}
               Login
             </Button>
           </Field>

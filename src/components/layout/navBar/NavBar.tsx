@@ -4,7 +4,7 @@ import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { BrandI, CategoryI } from "@/interfaces";
 import { BadgeCent, Building2, ListTree, ShoppingCart, SwatchBook, User } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -96,7 +96,11 @@ function NavBar({ brands, categories }: { brands: BrandI[], categories: Category
                                     <div>
                                         <p>{session.data.user?.name}</p>
                                         <p>{session.data.user?.email}</p>
+                                        <Button variant={"outline"} onClick={() => signOut()}>
+                                            Sign out
+                                        </Button>
                                     </div>
+
                                 }
                             </PopoverContent>
                         </Popover>
