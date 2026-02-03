@@ -96,7 +96,7 @@ function NavBar({ brands, categories }: { brands: BrandI[], categories: Category
                                     <div>
                                         <p>{session.data.user?.name}</p>
                                         <p>{session.data.user?.email}</p>
-                                        <Button variant={"outline"} onClick={() => signOut()}>
+                                        <Button variant={"outline"} onClick={() => signOut({ redirect: true, callbackUrl: "/auth/" })}>
                                             Sign out
                                         </Button>
                                     </div>

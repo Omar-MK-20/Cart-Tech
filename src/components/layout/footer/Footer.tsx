@@ -9,6 +9,7 @@ import
 } from "lucide-react";
 import Link from "next/link";
 import { footerSections, socialLinks } from "./footerData";
+import { Input } from "@/components/ui";
 
 
 
@@ -105,7 +106,7 @@ export function Footer()
               </p>
             </div>
             <div className="flex w-full md:w-auto max-w-md space-x-2">
-              <input
+              <Input
                 type="email"
                 placeholder="Enter your email"
                 className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"

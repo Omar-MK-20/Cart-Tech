@@ -27,7 +27,6 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from 'next/navigation';
 import { Controller } from "react-hook-form";
 import { useState } from 'react';
-import { Loader } from 'lucide-react';
 import { Spinner } from '@/components/ui/spinner';
 import { toast } from 'sonner';
 
@@ -63,7 +62,9 @@ function LoginPage()
         password: values.password,
         redirect: false
       });
-      
+
+      console.log(response);
+
       if (response?.ok)
       {
         router.push("/products");

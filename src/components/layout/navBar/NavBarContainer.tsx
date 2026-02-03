@@ -1,8 +1,5 @@
-'use client';
 import { SidebarProvider } from '@/components/ui';
-import { brands, categories } from '@/server/navBar/navData';
-import { NavBar } from './NavBar';
-import { SessionProvider } from 'next-auth/react';
+import NavWrapper from './NavWrapper';
 
 
 function NavBarContainer()
@@ -11,9 +8,7 @@ function NavBarContainer()
         // <header>
         <SidebarProvider>
             <header className="fixed w-full backdrop-blur-md shadow-sm z-100">
-                <SessionProvider>
-                    <NavBar brands={brands} categories={categories} />
-                </SessionProvider>
+                <NavWrapper />
             </header>
         </SidebarProvider>
         // </header>
@@ -21,3 +16,4 @@ function NavBarContainer()
 }
 
 export { NavBarContainer };
+
